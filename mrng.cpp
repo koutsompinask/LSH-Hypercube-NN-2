@@ -1,21 +1,23 @@
 #include <stdio.h>
 #include <queue>
+#define L 5
+#define K 5
 #include "mrng.h"
 #include "hashtable.h"
 #include "helper.h"
 
-Mrng::Mrng(const vector<vector<int>> &points,const int L,const int K,const int K_N):Graph(points){
+Mrng::Mrng(const vector<vector<int>> &points):Graph(points){
     HashTable* ht[L];
     for (int i=0;i<L;i++){
         ht[i]=new HashTable(K,points.size()/128);
-        for (int j;j<points.size();j++){
+        for (int j=0;j<points.size();j++){
             ht[i]->place(points[j],j);
         }
     }
-    for (int i;i<points.size();i++){
+    for (int i=0;i<points.size();i++){
         unordered_set<int> LpInd;
         unordered_set<int> indices;
-        double min=-1;
+        double min=-1;//find nearest neighbour with lsh
         int minInd=-1;
         for (auto h : ht){
             for (auto v : h->getBucket(points[i])){
@@ -51,7 +53,7 @@ Mrng::Mrng(const vector<vector<int>> &points,const int L,const int K,const int K
         }
     }
     //find mean of all points
-    vector<double> mean(points[0].size(),0);
+    vector<double> mean(points[0].size(),0.0);
     for (auto p:points){
         for (int i=0;i<mean.size();i++){
             mean[i]+=double(p[i])/points.size();
@@ -73,27 +75,36 @@ Mrng::Mrng(const vector<vector<int>> &points,const int L,const int K,const int K
         }
     }
     navigationNode=minInd;
+    navigationVector=points[navigationNode];
     for (int i=0;i<L;i++){
         delete(ht[i]);
     }
 }
 
 priority_queue<PQObject> Mrng::search(const vector<int> &query){
-    priority_queue<PQObject> S;
-    priortiy_queue<PQObject> Checked;
-    int q = navigationNode;
-    S.push(PQObject(dist(points),u.getVector(),u.getIndex()));
-    for (int i=0; i < 10 ; i++){
-        double min=-1;
-        int minInd=-1;
-        for (auto t:neighbours[q]){
+    priority_queue<PQObject> R;
+    R.push(PQObject(dist(navigationVector,query),navigationVector,navigationNode));
+    priority_queue<PQObject> checked;
+    for (int i=1; i < 10 ; i++){
+        PQObject q = R.top();
+        R.pop();
+        checked.push(q);
+        for (auto t:neighbours[q.getIndex()]){
             double d = dist(t.getVector(),query);
-            if (d<min || min<0){
-                min=d;
-                minInd=t.getIndex();
-            }
+            R.push(PQObject(d,t.getVector(),t.getIndex()));
         }
-        q=minInd;
     }
-    return S;
+    if (R.size() > checked.size()) { //merge the queues.
+        while(!checked.empty()){
+            R.push(checked.top());
+            checked.pop();
+        }
+        return R;
+    } else {
+        while(!R.empty()){
+            checked.push(R.top());
+            R.pop();
+        }
+        return checked;
+    }
 }

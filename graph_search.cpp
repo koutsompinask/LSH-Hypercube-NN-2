@@ -3,13 +3,17 @@
 #include <queue>
 #include "pqobject.h"
 #include "gnns.h"
+#include "mrng.h"
 #include "helper.h"
 
 int main(){
-    vector<vector<int>> photos=readInput("input.dat",5000);
-    Graph *g; 
-    Gnns gnns = Gnns(photos,5,4,50);
-    g=&gnns;
+    vector<vector<int>> photos=readInput("input.dat",500);
+    Graph *g;
+    if (false){
+        g = new Gnns(photos,5,4,50);
+    } else {
+        g = new Mrng(photos);
+    }
     vector<vector<int>> queries = readQuery("query.dat",1);
     priority_queue<PQObject> S = g->search(queries[0]);
     priority_queue<PQObject> pq_real;
@@ -35,5 +39,6 @@ int main(){
         pq_real.pop();
         i++;
     }
+    delete(g);
     return 0;
 }

@@ -9,8 +9,9 @@ using namespace std;
 class Mrng : public Graph{
     private:
     int navigationNode;
+    vector<int> navigationVector;
     public:
-    Mrng(const vector<vector<int>> &points,const int L,const int K,const int K_N);
+    Mrng(const vector<vector<int>> &points);
     priority_queue<PQObject> search(const vector<int> &query) override;
 };
 #endif

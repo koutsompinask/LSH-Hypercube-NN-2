@@ -1,10 +1,10 @@
 CC = g++
 CFLAG = -g -O2
-SRC = lsh.cpp hashtable.cpp helper.cpp hypercube.cpp graph_search.cpp gnns.cpp
+SRC = lsh.cpp hashtable.cpp helper.cpp hypercube.cpp graph_search.cpp gnns.cpp mrng.cpp
 OBJLSH = lsh.o hashtable.o helper.o
 OBJCUBE = cube.o hypercube.o helper.o 
-OBJGRAPH = graph_search.o gnns.o hashtable.o helper.o
-OBJ = lsh.o cube.o hypercube.o hashtable.o helper.o graph_search.o gnns.o
+OBJGRAPH = graph_search.o gnns.o mrng.o hashtable.o helper.o
+OBJ = lsh.o cube.o hypercube.o hashtable.o helper.o graph_search.o gnns.o mrng.o
 EX = lsh cube graph_search
 
 all : $(EX)
@@ -18,8 +18,11 @@ lsh : $(OBJLSH)
 cube : $(OBJCUBE)
 	$(CC) $^ -o  $@
 
-graph_search.o : graph_search.cpp gnns.o
+graph_search.o : graph_search.cpp gnns.o mrng.o
 	$(CC) -c graph_search.cpp $(CFLAG) -o graph_search.o
+
+mrng.o : mrng.h mrng.cpp hashtable.o helper.o graph.h 
+	$(CC) -c mrng.cpp $(CFLAG) -o mrng.o
 
 gnns.o : gnns.h gnns.cpp hashtable.o helper.o graph.h
 	$(CC) -c gnns.cpp $(CFLAG) -o gnns.o
