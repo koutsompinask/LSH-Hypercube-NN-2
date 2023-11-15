@@ -1,0 +1,30 @@
+START OF SEARCH 
+
+Query: 0
+Nearest Neighbour 1 : 1673
+Distance :1095.86
+Real Distance :1095.86
+tLsh: 0.013355 seconds
+tReal: 0.028084 seconds
+Range Search :
+Index 5 distance 2468.43
+Index 52 distance 1764.1
+Index 55 distance 2444.15
+Index 65 distance 2539.41
+Index 70 distance 2458.93
+Index 71 distance 2091.49
+Index 83 distance 2684.81
+Index 91 distance 2063.86
+Index 93 distance 2694.27
+Index 96 distance 1721.24
+Index 103 distance 1404.25
+Index 115 distance 1973.19
+Index 124 distance 2084.69
+Index 145 distance 2392.15
+Index 146 distance 2637.6
+Index 178 distance 2528.55
+Index 191 distance 2298.36
+Index 193 distance 2136.82
+Index 199 distance 2270.48
+Index 201 distance 2525.63
+
