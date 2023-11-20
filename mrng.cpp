@@ -90,8 +90,14 @@ priority_queue<PQObject> Mrng::search(const vector<int> &query,chrono::microseco
     priority_queue<PQObject> R;
     R.push(PQObject(dist(navigationVector,query),navigationVector,navigationNode));
     priority_queue<PQObject> checked;
+    double min;
     for (int i=1; i < l ; i++){
         PQObject q = R.top();
+        if (i==1 || q.getDistance() < min){
+            min = q.getDistance();
+        } else {
+            break;
+        }
         R.pop();
         checked.push(q);
         for (auto t:neighbours[q.getIndex()]){
