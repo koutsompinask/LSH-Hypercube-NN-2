@@ -67,7 +67,9 @@ int main(int argc,char *argv[]){
     while(repeat){
         double maf=-1;
         std::chrono::microseconds avgReal(0),avgApprox(0);
+        int qCount=0;
         for (auto q: queries){
+            cout << "Query: " << qCount << endl;
             vector<double> af(N);
             priority_queue<PQObject> S = g->search(q,avgApprox);
             priority_queue<PQObject> pq_real;
@@ -99,6 +101,7 @@ int main(int argc,char *argv[]){
             }
             double qMaf = *max_element(af.begin(),af.end());
             if (qMaf > maf) maf=qMaf;
+            qCount++;
         }
         cout << "tAverageApproximate: " << double((avgApprox/queries.size()).count()/1e6) << endl;
         cout << "tAverageReal: " << double((avgReal/queries.size()).count()/1e6) << endl;

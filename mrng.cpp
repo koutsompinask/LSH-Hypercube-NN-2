@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <queue>
+#include <chrono>
 #include <omp.h>
 #define L 5
 #define K 5
@@ -8,6 +9,7 @@
 #include "helper.h"
 
 Mrng::Mrng(const vector<vector<int>> &points,const int l):Graph(points),l(l){
+    auto start = chrono::high_resolution_clock::now();
     HashTable* ht[L];
     #pragma omp parallel for
     for (int i=0;i<L;i++){
@@ -83,6 +85,9 @@ Mrng::Mrng(const vector<vector<int>> &points,const int l):Graph(points),l(l){
     for (int i=0;i<L;i++){
         delete(ht[i]);
     }
+    auto end = chrono::high_resolution_clock::now();
+    auto duration = chrono::duration_cast<std::chrono::microseconds>(end - start);
+    cout << double(duration.count()/1e6) << endl;
 }
 
 priority_queue<PQObject> Mrng::search(const vector<int> &query,chrono::microseconds &time){
