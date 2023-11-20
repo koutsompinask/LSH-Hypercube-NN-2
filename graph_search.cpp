@@ -32,10 +32,13 @@ int main(int argc,char *argv[]){
     }
     vector<vector<int>> photos=readInput(inputFile,10000);
     Graph *g;
+    string method;
     if (m==1){
         g = new Gnns(photos,5,4,k,E,R);
+        method = "GNNS";
     } else {
         g = new Mrng(photos,l);
+        method = "MRNG";
     }
     if (args.count("q")==0){
         fprintf(stdout,"Please provide name of query file (Give \"d\" to continue with \"query.dat\")\n");
@@ -58,12 +61,14 @@ int main(int argc,char *argv[]){
     if (output.is_open()) {
         cout.rdbuf(output.rdbuf());
     }
+    cout << method << " Results\n";
     string contFlag;
     bool repeat=true;
     while(repeat){
-        vector<double> af(N);
+        double maf=-1;
         std::chrono::microseconds avgReal(0),avgApprox(0);
         for (auto q: queries){
+            vector<double> af(N);
             priority_queue<PQObject> S = g->search(q,avgApprox);
             priority_queue<PQObject> pq_real;
             int i=0;
@@ -78,7 +83,7 @@ int main(int argc,char *argv[]){
             auto startTrue = chrono::high_resolution_clock::now();
             for (int i=0;i<photos.size();i++){
                 vector<int> obj=photos[i];
-                PQObject pqo(dist(queries[0],obj),obj,i);
+                PQObject pqo(dist(q,obj),obj,i);
                 pq_real.push(pqo);
             }
             auto endTrue = chrono::high_resolution_clock::now();
@@ -92,10 +97,11 @@ int main(int argc,char *argv[]){
                 af[i]/=pqo_real.getDistance();
                 i++;
             }
+            double qMaf = *max_element(af.begin(),af.end());
+            if (qMaf > maf) maf=qMaf;
         }
-        cout << "tAverageApproximate: " << double((avgApprox/=queries.size()).count()) << endl;
-        cout << "tAverageReal: " << double((avgReal/=queries.size()).count()) << endl;
-        double maf = *max_element(af.begin(),af.end());
+        cout << "tAverageApproximate: " << double((avgApprox/=queries.size()).count()/1e6) << endl;
+        cout << "tAverageReal: " << double((avgReal/=queries.size()).count()/1e6) << endl;
         cout << "MAF: " << maf << endl;
         fprintf(stdout,"Do you want to continue with another query ?(y/n)\n");
         cin >> contFlag;

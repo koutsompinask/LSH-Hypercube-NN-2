@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <queue>
+#include <omp.h>
 #define L 5
 #define K 5
 #include "mrng.h"
@@ -8,12 +9,14 @@
 
 Mrng::Mrng(const vector<vector<int>> &points,const int l):Graph(points),l(l){
     HashTable* ht[L];
+    #pragma omp parallel for
     for (int i=0;i<L;i++){
         ht[i]=new HashTable(K,points.size()/128);
         for (int j=0;j<points.size();j++){
             ht[i]->place(points[j],j);
         }
     }
+    #pragma omp parallel for
     for (int i=0;i<points.size();i++){
         unordered_set<int> LpInd;
         unordered_set<int> indices;
@@ -76,12 +79,14 @@ Mrng::Mrng(const vector<vector<int>> &points,const int l):Graph(points),l(l){
     }
     navigationNode=minInd;
     navigationVector=points[navigationNode];
+    #pragma omp parallel for
     for (int i=0;i<L;i++){
         delete(ht[i]);
     }
 }
 
 priority_queue<PQObject> Mrng::search(const vector<int> &query,chrono::microseconds &time){
+    auto start = chrono::high_resolution_clock::now();
     priority_queue<PQObject> R;
     R.push(PQObject(dist(navigationVector,query),navigationVector,navigationNode));
     priority_queue<PQObject> checked;
@@ -94,6 +99,9 @@ priority_queue<PQObject> Mrng::search(const vector<int> &query,chrono::microseco
             R.push(PQObject(d,t.getVector(),t.getIndex()));
         }
     }
+    auto end = chrono::high_resolution_clock::now();
+    auto duration = chrono::duration_cast<std::chrono::microseconds>(end - start);
+    time+=duration;
     if (R.size() > checked.size()) { //merge the queues.
         while(!checked.empty()){
             R.push(checked.top());

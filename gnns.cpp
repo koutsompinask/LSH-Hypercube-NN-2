@@ -48,25 +48,33 @@ priority_queue<PQObject> Gnns::search(const vector<int> &query,chrono::microseco
     priority_queue<PQObject> S;
     unordered_set<int> indices;
     for (int i=0; i < R ; i++){
+        bool cond=true;
+        double yDist=-1;
         int y=rand()%neighbours.size();
-        double min=-1;
-        int minInd=-1;
-        int counter=0;
-        for (auto u : neighbours[y]){
-            double d = dist(u.getVector(),query);
-            if (min==-1 || d < min){
-                min=d;
-                minInd=u.getIndex();
+        while(cond){
+            double min=-1;
+            int minInd=-1;
+            int counter=0;
+            for (auto u : neighbours[y]){
+                double d = dist(u.getVector(),query);
+                if (min==-1 || d < min){
+                    min=d;
+                    minInd=u.getIndex();
+                }
+                if (indices.count(u.getIndex())==0){
+                    S.push(PQObject(d,u.getVector(),u.getIndex()));
+                    indices.insert(u.getIndex());
+                }
+                counter++;
+                if (counter>=E) break; 
             }
-            if (indices.count(u.getIndex())==0){
-                S.push(PQObject(d,u.getVector(),u.getIndex()));
-                indices.insert(u.getIndex());
+            if( min < yDist || yDist==-1){
+                y=minInd;
+                yDist=min;
+            } else {
+                cond=false; //reached local min
             }
-            counter++;
-            if (counter>=E) break; 
         }
-        y=minInd;
-        if (y<0) continue;;
     }
     auto end = chrono::high_resolution_clock::now();
     auto duration = chrono::duration_cast<std::chrono::microseconds>(end - start);
