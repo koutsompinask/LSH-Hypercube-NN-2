@@ -1,5 +1,5 @@
 CC = g++
-CFLAG = -g -O2
+CFLAG = -g -O2 -fopenmp
 SRC = lsh.cpp hashtable.cpp helper.cpp hypercube.cpp graph_search.cpp gnns.cpp mrng.cpp
 OBJLSH = lsh.o hashtable.o helper.o
 OBJCUBE = cube.o hypercube.o helper.o 
@@ -10,7 +10,7 @@ EX = lsh cube graph_search
 all : $(EX)
 
 graph_search: $(OBJGRAPH)
-	$(CC) $^ -o  $@
+	$(CC) $^ -o  $@ -fopenmp
 
 lsh : $(OBJLSH)
 	$(CC) $^ -o  $@

@@ -6,7 +6,7 @@
 #include "hashtable.h"
 #include "helper.h"
 
-Mrng::Mrng(const vector<vector<int>> &points):Graph(points){
+Mrng::Mrng(const vector<vector<int>> &points,const int l):Graph(points),l(l){
     HashTable* ht[L];
     for (int i=0;i<L;i++){
         ht[i]=new HashTable(K,points.size()/128);
@@ -81,11 +81,11 @@ Mrng::Mrng(const vector<vector<int>> &points):Graph(points){
     }
 }
 
-priority_queue<PQObject> Mrng::search(const vector<int> &query){
+priority_queue<PQObject> Mrng::search(const vector<int> &query,chrono::microseconds &time){
     priority_queue<PQObject> R;
     R.push(PQObject(dist(navigationVector,query),navigationVector,navigationNode));
     priority_queue<PQObject> checked;
-    for (int i=1; i < 10 ; i++){
+    for (int i=1; i < l ; i++){
         PQObject q = R.top();
         R.pop();
         checked.push(q);

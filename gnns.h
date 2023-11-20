@@ -6,8 +6,10 @@
 using namespace std;
 
 class Gnns : public Graph{
+    const int E;
+    const int R;
     public:
-    Gnns(const vector<vector<int>> &points,const int L,const int K,const int K_N);
-    priority_queue<PQObject> search(const vector<int> &query) override;
+    Gnns(const vector<vector<int>> &points,int L,int K_DIM,int K_N,int E,int R);
+    priority_queue<PQObject> search(const vector<int> &query,chrono::microseconds &time) override;
 };
 #endif

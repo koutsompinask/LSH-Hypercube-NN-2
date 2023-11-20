@@ -1,20 +1,22 @@
 #include <stdio.h>
 #include <queue>
-#include <chrono>
+#include <omp.h>
 #include "gnns.h"
 #include "hashtable.h"
 #include "helper.h"
 
-Gnns::Gnns(const vector<vector<int>> &points,const int L,const int K,const int K_N):Graph(points){
+Gnns::Gnns(const vector<vector<int>> &points,int L,int K_DIM,int K_N,int E,int R):Graph(points),E(E),R(R){
     auto start = chrono::high_resolution_clock::now();
     HashTable* ht[L];
+    #pragma omp parallel for
     for (int i=0;i<L;i++){
-        ht[i]=new HashTable(K,points.size()/128);
-        for (int j;j<points.size();j++){
+        ht[i]=new HashTable(K_DIM,points.size()/128);
+        for (int j=0;j<points.size();j++){
             ht[i]->place(points[j],j);
         }
     }
-    for (int i;i<points.size();i++){
+    #pragma omp parallel for
+    for (int i=0;i<points.size();i++){
         priority_queue<PQObject> pq;
         unordered_set<int> indices;
         for (auto h : ht){
@@ -30,8 +32,8 @@ Gnns::Gnns(const vector<vector<int>> &points,const int L,const int K,const int K
             pq.pop();
             j++;
         }
-        if (i%10000==0) cout<<i<<endl;
     }
+    #pragma omp parallel for
     for (int i=0;i<L;i++){
         delete(ht[i]);
     }
@@ -41,28 +43,33 @@ Gnns::Gnns(const vector<vector<int>> &points,const int L,const int K,const int K
     cout << "t: " << double(duration.count()/1e6) << " seconds" << endl;
 }
 
-priority_queue<PQObject> Gnns::search(const vector<int> &query){
+priority_queue<PQObject> Gnns::search(const vector<int> &query,chrono::microseconds &time){
+    auto start = chrono::high_resolution_clock::now();
     priority_queue<PQObject> S;
     unordered_set<int> indices;
-    for (int i=0; i < 10 ; i++){
+    for (int i=0; i < R ; i++){
         int y=rand()%neighbours.size();
-        for (int t=1; t<100 ; t++){
-            double min=-1;
-            int minInd=-1;
-            for (auto u : neighbours[y]){
-                double d = dist(u.getVector(),query);
-                if (min==-1 || d < min){
-                    min=d;
-                    minInd=u.getIndex();
-                }
-                if (indices.count(u.getIndex())==0){
-                    S.push(PQObject(d,u.getVector(),u.getIndex()));
-                    indices.insert(u.getIndex());
-                }
+        double min=-1;
+        int minInd=-1;
+        int counter=0;
+        for (auto u : neighbours[y]){
+            double d = dist(u.getVector(),query);
+            if (min==-1 || d < min){
+                min=d;
+                minInd=u.getIndex();
             }
-            y=minInd;
-            if (y<0) break;
+            if (indices.count(u.getIndex())==0){
+                S.push(PQObject(d,u.getVector(),u.getIndex()));
+                indices.insert(u.getIndex());
+            }
+            counter++;
+            if (counter>=E) break; 
         }
+        y=minInd;
+        if (y<0) continue;;
     }
+    auto end = chrono::high_resolution_clock::now();
+    auto duration = chrono::duration_cast<std::chrono::microseconds>(end - start);
+    time+=duration;
     return S;
 }
