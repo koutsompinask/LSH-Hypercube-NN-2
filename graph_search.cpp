@@ -100,8 +100,8 @@ int main(int argc,char *argv[]){
             double qMaf = *max_element(af.begin(),af.end());
             if (qMaf > maf) maf=qMaf;
         }
-        cout << "tAverageApproximate: " << double((avgApprox/=queries.size()).count()/1e6) << endl;
-        cout << "tAverageReal: " << double((avgReal/=queries.size()).count()/1e6) << endl;
+        cout << "tAverageApproximate: " << double((avgApprox/queries.size()).count()/1e6) << endl;
+        cout << "tAverageReal: " << double((avgReal/queries.size()).count()/1e6) << endl;
         cout << "MAF: " << maf << endl;
         fprintf(stdout,"Do you want to continue with another query ?(y/n)\n");
         cin >> contFlag;

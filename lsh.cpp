@@ -141,8 +141,8 @@ int main(int argc, char* argv[]){
             cout << endl;
             fflush(stdout);
         }
-        cout << "tAverageApproximate: " << double((avgApprox/=queries.size()).count()/1e6) << endl;
-        cout << "tAverageReal: " << double((avgReal/=queries.size()).count()/1e6) << endl;
+        cout << "tAverageApproximate: " << double((avgApprox/queries.size()).count()/1e6) << endl;
+        cout << "tAverageReal: " << double((avgReal/queries.size()).count()/1e6) << endl;
         cout << "MAF: " << maf << endl;
         queries.clear();
         fprintf(stdout,"Do you want to continue with another query ?(y/n)\n");
