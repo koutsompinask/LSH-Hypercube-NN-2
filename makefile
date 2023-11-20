@@ -1,5 +1,5 @@
 CC = g++
-CFLAG = -g -O2 -fopenmp
+CFLAG = -g -O3 -fopenmp
 SRC = lsh.cpp hashtable.cpp helper.cpp hypercube.cpp graph_search.cpp gnns.cpp mrng.cpp
 OBJLSH = lsh.o hashtable.o helper.o
 OBJCUBE = cube.o hypercube.o helper.o 

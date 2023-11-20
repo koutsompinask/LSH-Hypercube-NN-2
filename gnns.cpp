@@ -82,7 +82,6 @@ priority_queue<PQObject> Gnns::search(const vector<int> &query,chrono::microseco
 
 void Gnns::writeToFile(){
     ofstream file("gnns.txt");
-    vector<vector<PQObject>> ;
 
     if (!file.is_open()) {
         cerr << "cant write to file";
@@ -97,7 +96,6 @@ void Gnns::writeToFile(){
 
 bool Gnns::readFromFile(){
     ifstream file("gnns.txt");
-    vector<vector<PQObject>> ;
 
     if (!file.is_open()) {
         return false;//file not found so we havent saved it
