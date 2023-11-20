@@ -1,12 +1,13 @@
 #include <stdio.h>
 #include <queue>
 #include <omp.h>
+#include <fstream>
 #include "gnns.h"
 #include "hashtable.h"
 #include "helper.h"
 
 Gnns::Gnns(const vector<vector<int>> &points,int L,int K_DIM,int K_N,int E,int R):Graph(points),E(E),R(R){
-    auto start = chrono::high_resolution_clock::now();
+    //if (!this->readFromFile()){
     HashTable* ht[L];
     #pragma omp parallel for
     for (int i=0;i<L;i++){
@@ -37,10 +38,7 @@ Gnns::Gnns(const vector<vector<int>> &points,int L,int K_DIM,int K_N,int E,int R
     for (int i=0;i<L;i++){
         delete(ht[i]);
     }
-    auto end = chrono::high_resolution_clock::now();
-    auto duration = chrono::duration_cast<std::chrono::microseconds>(end - start);
-
-    cout << "t: " << double(duration.count()/1e6) << " seconds" << endl;
+    //}
 }
 
 priority_queue<PQObject> Gnns::search(const vector<int> &query,chrono::microseconds &time){
@@ -80,4 +78,33 @@ priority_queue<PQObject> Gnns::search(const vector<int> &query,chrono::microseco
     auto duration = chrono::duration_cast<std::chrono::microseconds>(end - start);
     time+=duration;
     return S;
+}
+
+void Gnns::writeToFile(){
+    ofstream file("gnns.txt");
+    vector<vector<PQObject>> ;
+
+    if (!file.is_open()) {
+        cerr << "cant write to file";
+        return;
+    }
+    //TODO write neighbours 
+    //idea write PQOBJECT per line
+    //seperate vectors by special delim like "NEXT\n"
+    //add like "END" to know where to stop
+    file.close();
+}
+
+bool Gnns::readFromFile(){
+    ifstream file("gnns.txt");
+    vector<vector<PQObject>> ;
+
+    if (!file.is_open()) {
+        return false;//file not found so we havent saved it
+    }
+
+    //TODO read neighbours
+
+    file.close();
+    return true;
 }
