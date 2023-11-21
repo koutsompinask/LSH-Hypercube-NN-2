@@ -38,7 +38,7 @@ int main(int argc, char* argv[]){
     
     //init cube
     HyperCube hc(D);
-    vector<vector<int>> photos=readInput(inputFile);  
+    vector<vector<int>> photos=readInput(inputFile,5000);  
     
 
     //place data objects
@@ -74,7 +74,9 @@ int main(int argc, char* argv[]){
     }
 
     while(queries.size()!=0){
+        double maf=-1;
         cout << "START OF SEARCH \n\n";
+        std::chrono::microseconds avgReal(0),avgApprox(0);
         for (int k=0;k<queries.size();k++){
             //2 priority queues for storing objects and distances 
             //one for heuristic search and one for brute force
@@ -91,6 +93,7 @@ int main(int argc, char* argv[]){
             }
             auto endLsh = chrono::high_resolution_clock::now();
             auto durationLsh = chrono::duration_cast<std::chrono::microseconds>(endLsh - startLsh);
+            avgApprox+=durationLsh;
 
             auto startTrue = chrono::high_resolution_clock::now();
             for (int i=0;i<photos.size();i++){ //for every photo
@@ -99,8 +102,9 @@ int main(int argc, char* argv[]){
             }
             auto endTrue = chrono::high_resolution_clock::now();
             auto durationTrue = chrono::duration_cast<std::chrono::microseconds>(endTrue - startTrue);
+            avgReal+=durationTrue;
 
-            //print reesults
+            //print results
             int i = 0;
             while (!pq.empty() && i< K_N ){
                 PQObject pqo = pq.top();
@@ -108,6 +112,8 @@ int main(int argc, char* argv[]){
                 cout << "Nearest Neighbour " << i+1 << " : " <<  pqo.getIndex() << endl;
                 cout << "Distance :" << pqo.getDistance() << endl;
                 cout << "Real Distance :" << pqo_real.getDistance() << endl;
+                double af=pqo.getDistance()/pqo_real.getDistance();
+                if(af>maf) maf=af;
                 pq.pop();
                 pq_real.pop();
                 i++;
@@ -128,6 +134,9 @@ int main(int argc, char* argv[]){
             cout << endl;
             fflush(stdout);
         }
+        cout << "tAverageApproximate: " << double((avgApprox/queries.size()).count()/1e6) << endl;
+        cout << "tAverageReal: " << double((avgReal/queries.size()).count()/1e6) << endl;
+        cout << "MAF: " << maf << endl;
         queries.clear();
         fprintf(stdout,"Do you want to continue with another query ?(y/n)\n");
         cin >> contFlag;

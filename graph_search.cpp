@@ -30,7 +30,7 @@ int main(int argc,char *argv[]){
         cin >> inputFile;
         if (inputFile=="d") inputFile = "input.dat";
     }
-    vector<vector<int>> photos=readInput(inputFile,10000);
+    vector<vector<int>> photos=readInput(inputFile,5000);
     Graph *g;
     string method;
     if (m==1){

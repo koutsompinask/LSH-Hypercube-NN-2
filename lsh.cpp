@@ -33,7 +33,7 @@ int main(int argc, char* argv[]){
         if (inputFile=="def") inputFile = "input.dat";
     }
 
-    vector<vector<int>> photos=readInput(inputFile,10000);  
+    vector<vector<int>> photos=readInput(inputFile,5000);  
     HashTable *ht[L];
     for (int i=0; i < L ; i++){
         ht[i] = new HashTable(K_DIM,photos.size()/128);

@@ -91,6 +91,9 @@ void Gnns::writeToFile(){
         cerr << "cant write to file";
         return;
     }
+    // else{
+    //     file << neighbours ;
+    // }
     //TODO write neighbours 
     //idea write PQOBJECT per line
     //seperate vectors by special delim like "NEXT\n"
@@ -104,7 +107,9 @@ bool Gnns::readFromFile(){
     if (!file.is_open()) {
         return false;//file not found so we havent saved it
     }
+    else{
 
+    }
     //TODO read neighbours
 
     file.close();
