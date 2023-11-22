@@ -121,10 +121,12 @@ bool Gnns::readFromFile(){
     else{
         vector<string> myNeihgbours={};
         int i=0;
-        while(myNeihgbours[i]!="NEXT"){
-            file >> myNeihgbours[i];
-            // cout << myNeihgbours[i];
-            i++;
+        while(myNeihgbours[i]!="END"){
+            while(myNeihgbours[i]!="NEXT"){
+                file >> myNeihgbours[i];
+                // cout << myNeihgbours[i];
+                i++;
+            }
         }
     }
     //TODO read neighbours
