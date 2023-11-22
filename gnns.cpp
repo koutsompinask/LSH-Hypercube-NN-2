@@ -91,9 +91,20 @@ void Gnns::writeToFile(){
         cerr << "cant write to file";
         return;
     }
-    // else{
-    //     file << neighbours ;
-    // }
+    else{
+        for(int i=0; i<neighbours.size(); i++){
+            file << "i=" << i << "\n";
+            for(auto neighbor : neighbours[i]){
+                file << "Index:" << neighbor.getIndex() << "\n";
+                file << "Distance:" << neighbor.getIndex() << "\n";
+                for (auto point : neighbor.getVector()){
+                    file << point << "-"; 
+                }
+                file << "NEXT\n";
+            }
+        }
+        file << "END" ;
+    }
     //TODO write neighbours 
     //idea write PQOBJECT per line
     //seperate vectors by special delim like "NEXT\n"
@@ -108,7 +119,13 @@ bool Gnns::readFromFile(){
         return false;//file not found so we havent saved it
     }
     else{
-
+        vector<string> myNeihgbours={};
+        int i=0;
+        while(myNeihgbours[i]!="NEXT"){
+            file >> myNeihgbours[i];
+            cout << myNeihgbours[i];
+            i++;
+        }
     }
     //TODO read neighbours
 
