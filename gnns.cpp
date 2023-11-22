@@ -123,7 +123,7 @@ bool Gnns::readFromFile(){
         int i=0;
         while(myNeihgbours[i]!="NEXT"){
             file >> myNeihgbours[i];
-            cout << myNeihgbours[i];
+            // cout << myNeihgbours[i];
             i++;
         }
     }
