@@ -1,0 +1,82 @@
+START OF SEARCH 
+
+Query: 0
+Nearest Neighbour 1 : 103
+Distance :1404.25
+Real Distance :1095.86
+tLsh: 0.000373 seconds
+tReal: 0.033283 seconds
+Range Search :
+Index 15 distance 2002.42
+Index 19 distance 2101.49
+Index 47 distance 2472.28
+Index 50 distance 2419.52
+Index 69 distance 2820.38
+Index 96 distance 1721.24
+Index 103 distance 1404.25
+Index 123 distance 1996.83
+Index 136 distance 2428.09
+Index 140 distance 2034.41
+
+Query: 1
+tLsh: 2.7e-05 seconds
+tReal: 0.027016 seconds
+Range Search :
+
+Query: 2
+Nearest Neighbour 1 : 40
+Distance :1289.1
+Real Distance :547.098
+tLsh: 5.7e-05 seconds
+tReal: 0.027031 seconds
+Range Search :
+Index 3 distance 1672.45
+Index 10 distance 2286.85
+Index 11 distance 1798.17
+Index 23 distance 1694.09
+Index 32 distance 2179.2
+Index 34 distance 2796.6
+Index 37 distance 2755.96
+Index 39 distance 2554.3
+Index 40 distance 1289.1
+Index 41 distance 2336.22
+
+Query: 3
+Nearest Neighbour 1 : 3160
+Distance :1821.48
+Real Distance :1297.79
+tLsh: 5.6e-05 seconds
+tReal: 0.027069 seconds
+Range Search :
+Index 1128 distance 2184.18
+Index 1847 distance 2469.76
+Index 2483 distance 2286.54
+Index 2514 distance 2796.06
+Index 2629 distance 2541.95
+Index 2837 distance 2437.55
+Index 2839 distance 2405.84
+Index 3106 distance 3099.78
+Index 3160 distance 1821.48
+Index 4067 distance 1991.75
+
+Query: 4
+Nearest Neighbour 1 : 322
+Distance :1523.53
+Real Distance :1322.51
+tLsh: 6.1e-05 seconds
+tReal: 0.026714 seconds
+Range Search :
+Index 126 distance 2525.54
+Index 148 distance 2283.33
+Index 194 distance 1575.79
+Index 322 distance 1523.53
+Index 329 distance 2100.49
+Index 374 distance 2193.38
+Index 414 distance 2411.04
+Index 461 distance 1757.82
+Index 741 distance 2379.03
+Index 782 distance 1871.07
+
+tAverageApproximate: 0.000114
+tAverageReal: 0.028222
+MAF: 2.35625

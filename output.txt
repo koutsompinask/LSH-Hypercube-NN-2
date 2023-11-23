@@ -1,30 +1,69 @@
 START OF SEARCH 
 
 Query: 0
-Nearest Neighbour 1 : 1673
-Distance :1095.86
+Nearest Neighbour 1 : 680
+Distance :1919.53
 Real Distance :1095.86
-tLsh: 0.013355 seconds
-tReal: 0.028084 seconds
+tLsh: 6.5e-05 seconds
+tReal: 0.030403 seconds
 Range Search :
-Index 5 distance 2468.43
-Index 52 distance 1764.1
-Index 55 distance 2444.15
-Index 65 distance 2539.41
-Index 70 distance 2458.93
-Index 71 distance 2091.49
-Index 83 distance 2684.81
-Index 91 distance 2063.86
-Index 93 distance 2694.27
-Index 96 distance 1721.24
-Index 103 distance 1404.25
-Index 115 distance 1973.19
-Index 124 distance 2084.69
-Index 145 distance 2392.15
-Index 146 distance 2637.6
-Index 178 distance 2528.55
-Index 191 distance 2298.36
-Index 193 distance 2136.82
-Index 199 distance 2270.48
-Index 201 distance 2525.63
+Index 680 distance 1919.53
+Index 3669 distance 2298.96
+Index 3676 distance 2736.82
 
+Query: 1
+Nearest Neighbour 1 : 874
+Distance :2474.71
+Real Distance :1554.42
+tLsh: 4.5e-05 seconds
+tReal: 0.029578 seconds
+Range Search :
+Index 874 distance 2474.71
+Index 1089 distance 2563.9
+Index 3013 distance 2937.7
+Index 4986 distance 2586.81
+
+Query: 2
+Nearest Neighbour 1 : 1658
+Distance :617.898
+Real Distance :547.098
+tLsh: 5.9e-05 seconds
+tReal: 0.027262 seconds
+Range Search :
+Index 78 distance 1425.72
+Index 671 distance 1740.5
+Index 1080 distance 1233.72
+Index 1658 distance 617.898
+Index 1787 distance 849.338
+Index 2349 distance 2244.8
+Index 2791 distance 748.563
+Index 2892 distance 2387.23
+Index 3133 distance 2677.9
+Index 3602 distance 684.844
+
+Query: 3
+Nearest Neighbour 1 : 93
+Distance :2268.03
+Real Distance :1297.79
+tLsh: 6.2e-05 seconds
+tReal: 0.026643 seconds
+Range Search :
+Index 554 distance 2646.94
+Index 1546 distance 2840.23
+Index 1950 distance 2640.19
+Index 1984 distance 2784.46
+Index 2466 distance 2690.67
+Index 3525 distance 2679.63
+Index 4728 distance 2727.34
+Index 93 distance 2268.03
+Index 165 distance 2543.72
+Index 244 distance 2645.4
+
+Query: 4
+tLsh: 2.8e-05 seconds
+tReal: 0.026643 seconds
+Range Search :
+
+tAverageApproximate: 5.1e-05
+tAverageReal: 0.028105
+MAF: 1.75162

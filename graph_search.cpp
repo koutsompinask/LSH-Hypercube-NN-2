@@ -22,7 +22,7 @@ int main(int argc,char *argv[]){
     const int R = (args.count("R")==1) ? stoi(args["R"]) : R_DEF;
     const int l = (args.count("l")==1) ? stoi(args["l"]) : L_DEF;
     const int m = (args.count("m")==1) ? stoi(args["m"]) : 1;
-    string outputFile = (args.count("o")==1) ? args["o"] : "output.txt";
+    string outputFile = (args.count("o")==1) ? args["o"] : "output3.txt";
     string inputFile = (args.count("d")==1) ? args["d"] : "input.dat";
     string queryFile = (args.count("q")==1) ? args["q"] : "query.dat";
     if (args.count("d")==0){
@@ -51,9 +51,9 @@ int main(int argc,char *argv[]){
     vector<vector<int>> queries = readQuery("query.dat",loops);
 
     if (args.count("o")==0){
-        fprintf(stdout,"Please provide name of output file (Give \"d\" to continue with \"output.txt\")\n");
+        fprintf(stdout,"Please provide name of output file (Give \"d\" to continue with \"output3.txt\")\n");
         cin >> outputFile;
-        if (outputFile=="d") outputFile = "output.txt";
+        if (outputFile=="d") outputFile = "output3.txt";
     }
 
     ofstream output ;

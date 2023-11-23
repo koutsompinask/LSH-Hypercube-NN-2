@@ -28,7 +28,7 @@ int main(int argc, char* argv[]){
     const bool skipId = (args.count("id")==0);
     string inputFile = (args.count("d")==1) ? args["d"] : "input.dat";
     string queryFile = (args.count("q")==1) ? args["q"] : "query.dat";
-    string outputFile = (args.count("o")==1) ? args["o"] : "";
+    string outputFile = (args.count("o")==1) ? args["o"] : "output2.txt";
 
     if (args.count("d")==0){
         fprintf(stdout,"Please provide name of dataset file (Give \"def\" to continue with \"input.dat\")\n");
@@ -62,9 +62,9 @@ int main(int argc, char* argv[]){
     vector<vector<int>> queries = readQuery(queryFile,loops);  //read as many queries as given from user
 
     if (args.count("o")==0){
-        fprintf(stdout,"Please provide name of output file (Give \"def\" to continue with \"output.txt\")\n");
+        fprintf(stdout,"Please provide name of output file (Give \"def\" to continue with \"output2.txt\")\n");
         cin >> outputFile;
-        if (outputFile=="def") outputFile = "output.txt";
+        if (outputFile=="def") outputFile = "output2.txt";
     }
 
     ofstream output ;
