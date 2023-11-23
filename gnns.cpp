@@ -8,7 +8,7 @@
 
 Gnns::Gnns(const vector<vector<int>> &points,int L,int K_DIM,int K_N,int E,int R):Graph(points),E(E),R(R){
     auto start = chrono::high_resolution_clock::now();
-    //if (!this->readFromFile()){
+    // if (!this->readFromFile()){
     HashTable* ht[L];
     #pragma omp parallel for
     for (int i=0;i<L;i++){
@@ -42,7 +42,8 @@ Gnns::Gnns(const vector<vector<int>> &points,int L,int K_DIM,int K_N,int E,int R
     auto end = chrono::high_resolution_clock::now();
     auto duration = chrono::duration_cast<std::chrono::microseconds>(end - start);
     cout << double(duration.count()/1e6) << endl;
-    //}
+    // this->writeToFile();
+    // }
 }
 
 priority_queue<PQObject> Gnns::search(const vector<int> &query,chrono::microseconds &time){
