@@ -10,6 +10,7 @@
 
 Mrng::Mrng(const vector<vector<int>> &points,const int l):Graph(points),l(l){
     auto start = chrono::high_resolution_clock::now();
+    //use lsh to find nearest neighbour for each node , and for finding navigation node
     HashTable* ht[L];
     #pragma omp parallel for
     for (int i=0;i<L;i++){
@@ -20,7 +21,7 @@ Mrng::Mrng(const vector<vector<int>> &points,const int l):Graph(points),l(l){
     }
     #pragma omp parallel for
     for (int i=0;i<points.size();i++){
-        unordered_set<int> LpInd;
+        unordered_set<int> LpInd; 
         unordered_set<int> indices;
         double min=-1;//find nearest neighbour with lsh
         int minInd=-1;
@@ -36,12 +37,12 @@ Mrng::Mrng(const vector<vector<int>> &points,const int l):Graph(points),l(l){
                 indices.insert(v.index);
             }
         }
-        neighbours[i].push_back(PQObject(min,points[minInd],minInd));
+        neighbours[i].push_back(PQObject(min,points[minInd],minInd)); //add nearest neighbour
         LpInd.insert(minInd);
-        LpInd.insert(i);
-        for(int j=0;j<points.size();j++){
-            bool notLongest=true;
+        LpInd.insert(i); //add them to lp
+        for(int j=0;j<points.size();j++){ //for every point
             if (LpInd.count(j)>0) continue; //check if j is in Lp
+            bool notLongest=true; 
             double pr = dist(points[i],points[j]);
             for(auto t: neighbours[i]){ //for each t
                 double pt = t.getDistance();
@@ -51,7 +52,7 @@ Mrng::Mrng(const vector<vector<int>> &points,const int l):Graph(points),l(l){
                     break;
                 }
             }
-            if (notLongest){ //if its not the longest in all triangles add it to Lp
+            if (notLongest){ //if its not the longest in all triangles add it to Lp else continue to next point
                 neighbours[i].push_back(PQObject(pr,points[j],j));
                 LpInd.insert(j);
             }
@@ -79,6 +80,7 @@ Mrng::Mrng(const vector<vector<int>> &points,const int l):Graph(points),l(l){
             indices.insert(v.index);
         }
     }
+    //save navigation node
     navigationNode=minInd;
     navigationVector=points[navigationNode];
     #pragma omp parallel for
@@ -94,30 +96,32 @@ priority_queue<PQObject> Mrng::search(const vector<int> &query,chrono::microseco
     auto start = chrono::high_resolution_clock::now();
     priority_queue<PQObject> R;
     R.push(PQObject(dist(navigationVector,query),navigationVector,navigationNode));
+    unordered_set<int> indices;
+    //initialize R set using a pq to keep them sorted
     priority_queue<PQObject> checked;
-    for (int i=1; i < l ; i++){
+    //another for checked nodes
+    for (int i=1; i < l ;){
         PQObject q = R.top();
         R.pop();
-        checked.push(q);
+        if (indices.count(q.getIndex())>0) continue; //if already checked
+        indices.insert(q.getIndex());
+        checked.push(q); // check first node
         for (auto t:neighbours[q.getIndex()]){
             double d = dist(t.getVector(),query);
             R.push(PQObject(d,t.getVector(),t.getIndex()));
         }
+        i++;
     }
     auto end = chrono::high_resolution_clock::now();
     auto duration = chrono::duration_cast<std::chrono::microseconds>(end - start);
     time+=duration;
-    if (R.size() > checked.size()) { //merge the queues.
-        while(!checked.empty()){
-            R.push(checked.top());
-            checked.pop();
-        }
-        return R;
-    } else {
-        while(!R.empty()){
+    //merge queues 
+    while(!R.empty()){
+        PQObject pqo = R.top();
+        if(indices.count(pqo.getIndex())==0){
             checked.push(R.top());
-            R.pop();
         }
-        return checked;
+        R.pop();
     }
+    return checked;
 }

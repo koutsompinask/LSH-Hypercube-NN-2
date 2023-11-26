@@ -31,8 +31,9 @@ int main(int argc,char *argv[]){
         if (inputFile=="d") inputFile = "input.dat";
     }
     vector<vector<int>> photos=readInput(inputFile,5000);
-    Graph *g;
+    Graph *g; //abstract class
     string method;
+    //init abstract class based on argument
     if (m==1){
         g = new Gnns(photos,5,4,k,E,R);
         method = "GNNS";
@@ -64,24 +65,14 @@ int main(int argc,char *argv[]){
     cout << method << " Results\n";
     string contFlag;
     bool repeat=true;
-    while(repeat){
-        double maf=-1;
-        std::chrono::microseconds avgReal(0),avgApprox(0);
-        int qCount=0;
+    while(repeat){ //loop in case user wants to re-execute some queries
+        double maf=-1; //keep maf 
+        std::chrono::microseconds avgReal(0),avgApprox(0); 
+        int qCount=0; 
         for (auto q: queries){
             cout << "Query: " << qCount << endl;
-            vector<double> af(N);
-            priority_queue<PQObject> S = g->search(q,avgApprox);
-            priority_queue<PQObject> pq_real;
-            int i=0;
-            while (!S.empty() && i< N){
-                PQObject pqo = S.top();
-                cout << "Nearest Neighbour " << i+1 << " : " << pqo.getIndex() << endl;
-                cout << "distanceApproximate: " << pqo.getDistance() << endl;
-                af[i]=pqo.getDistance();
-                S.pop();
-                i++;
-            }
+            priority_queue<PQObject> S = g->search(q,avgApprox); //call search on graph
+            priority_queue<PQObject> pq_real; //search real dist
             auto startTrue = chrono::high_resolution_clock::now();
             for (int i=0;i<photos.size();i++){
                 vector<int> obj=photos[i];
@@ -91,16 +82,20 @@ int main(int argc,char *argv[]){
             auto endTrue = chrono::high_resolution_clock::now();
             auto durationTrue = chrono::duration_cast<std::chrono::microseconds>(endTrue - startTrue);
             avgReal+=durationTrue;
-            i = 0;
-            while (!pq_real.empty() && i< N ){
+            int i = 0;
+            double af;
+            while (!S.empty() && !pq_real.empty() && i< N ){
+                PQObject pqo = S.top();
+                cout << "Nearest Neighbour " << i+1 << " : " << pqo.getIndex() << endl;
+                cout << "distanceApproximate: " << pqo.getDistance() << endl;
                 PQObject pqo_real = pq_real.top();
                 cout << "distanceTrue:" << pqo_real.getDistance() << endl;
+                S.pop();
                 pq_real.pop();
-                af[i]/=pqo_real.getDistance();
+                af=pqo.getDistance()/pqo_real.getDistance();
+                if (af>maf) maf=af;
                 i++;
             }
-            double qMaf = *max_element(af.begin(),af.end());
-            if (qMaf > maf) maf=qMaf;
             qCount++;
         }
         cout << "tAverageApproximate: " << double((avgApprox/queries.size()).count()/1e6) << endl;
