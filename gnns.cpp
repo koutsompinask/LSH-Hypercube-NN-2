@@ -12,7 +12,7 @@ Gnns::Gnns(const vector<vector<int>> &points,int L,int K_DIM,int K_N,int E,int R
     HashTable* ht[L];
     #pragma omp parallel for // for parallelism
     for (int i=0;i<L;i++){
-        ht[i]=new HashTable(K_DIM,points.size()/128);
+        ht[i]=new HashTable(K_DIM,points.size()/128+1);
         for (int j=0;j<points.size();j++){
             ht[i]->place(points[j],j);
         }

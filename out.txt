@@ -1,0 +1,404 @@
+MRNG Results
+Query: 0
+Nearest Neighbour 1 : 773
+distanceApproximate: 1175.03
+distanceTrue:1175.03
+Query: 1
+Nearest Neighbour 1 : 360
+distanceApproximate: 1830.26
+distanceTrue:1830.26
+Query: 2
+Nearest Neighbour 1 : 466
+distanceApproximate: 645.058
+distanceTrue:645.058
+Query: 3
+Nearest Neighbour 1 : 451
+distanceApproximate: 1394.31
+distanceTrue:1394.31
+Query: 4
+Nearest Neighbour 1 : 914
+distanceApproximate: 1335.51
+distanceTrue:1335.51
+Query: 5
+Nearest Neighbour 1 : 466
+distanceApproximate: 757.116
+distanceTrue:757.116
+Query: 6
+Nearest Neighbour 1 : 54
+distanceApproximate: 1489.44
+distanceTrue:1489.44
+Query: 7
+Nearest Neighbour 1 : 932
+distanceApproximate: 1846.71
+distanceTrue:1844.49
+Query: 8
+Nearest Neighbour 1 : 237
+distanceApproximate: 2235
+distanceTrue:2235
+Query: 9
+Nearest Neighbour 1 : 167
+distanceApproximate: 1391.53
+distanceTrue:1391.53
+Query: 10
+Nearest Neighbour 1 : 524
+distanceApproximate: 1421.33
+distanceTrue:1421.33
+Query: 11
+Nearest Neighbour 1 : 488
+distanceApproximate: 2027.42
+distanceTrue:2027.42
+Query: 12
+Nearest Neighbour 1 : 116
+distanceApproximate: 1215.53
+distanceTrue:1215.53
+Query: 13
+Nearest Neighbour 1 : 210
+distanceApproximate: 1388.68
+distanceTrue:1388.68
+Query: 14
+Nearest Neighbour 1 : 678
+distanceApproximate: 872.264
+distanceTrue:872.264
+Query: 15
+Nearest Neighbour 1 : 50
+distanceApproximate: 1918.04
+distanceTrue:1918.04
+Query: 16
+Nearest Neighbour 1 : 334
+distanceApproximate: 1448.73
+distanceTrue:1448.73
+Query: 17
+Nearest Neighbour 1 : 522
+distanceApproximate: 1358.85
+distanceTrue:1358.85
+Query: 18
+Nearest Neighbour 1 : 30
+distanceApproximate: 2205.13
+distanceTrue:2185.63
+Query: 19
+Nearest Neighbour 1 : 92
+distanceApproximate: 1257.99
+distanceTrue:1257.99
+Query: 20
+Nearest Neighbour 1 : 423
+distanceApproximate: 1370.88
+distanceTrue:1370.88
+Query: 21
+Nearest Neighbour 1 : 106
+distanceApproximate: 1289.16
+distanceTrue:1289.16
+Query: 22
+Nearest Neighbour 1 : 488
+distanceApproximate: 1819.75
+distanceTrue:1819.75
+Query: 23
+Nearest Neighbour 1 : 625
+distanceApproximate: 1428.74
+distanceTrue:1428.74
+Query: 24
+Nearest Neighbour 1 : 92
+distanceApproximate: 1547.73
+distanceTrue:1547.73
+Query: 25
+Nearest Neighbour 1 : 427
+distanceApproximate: 1713.91
+distanceTrue:1713.91
+Query: 26
+Nearest Neighbour 1 : 686
+distanceApproximate: 1261.31
+distanceTrue:1261.31
+Query: 27
+Nearest Neighbour 1 : 550
+distanceApproximate: 1480.07
+distanceTrue:1480.07
+Query: 28
+Nearest Neighbour 1 : 320
+distanceApproximate: 1353.47
+distanceTrue:1353.47
+Query: 29
+Nearest Neighbour 1 : 358
+distanceApproximate: 629.079
+distanceTrue:629.079
+Query: 30
+Nearest Neighbour 1 : 74
+distanceApproximate: 1415
+distanceTrue:1415
+Query: 31
+Nearest Neighbour 1 : 738
+distanceApproximate: 608.037
+distanceTrue:608.037
+Query: 32
+Nearest Neighbour 1 : 136
+distanceApproximate: 1415.28
+distanceTrue:1415.28
+Query: 33
+Nearest Neighbour 1 : 64
+distanceApproximate: 2061.18
+distanceTrue:2061.18
+Query: 34
+Nearest Neighbour 1 : 795
+distanceApproximate: 1208.98
+distanceTrue:1208.98
+Query: 35
+Nearest Neighbour 1 : 774
+distanceApproximate: 1958.83
+distanceTrue:1958.83
+Query: 36
+Nearest Neighbour 1 : 84
+distanceApproximate: 1352.92
+distanceTrue:1352.92
+Query: 37
+Nearest Neighbour 1 : 184
+distanceApproximate: 612.373
+distanceTrue:612.373
+Query: 38
+Nearest Neighbour 1 : 472
+distanceApproximate: 1730.32
+distanceTrue:1730.32
+Query: 39
+Nearest Neighbour 1 : 450
+distanceApproximate: 805.088
+distanceTrue:805.088
+Query: 40
+Nearest Neighbour 1 : 72
+distanceApproximate: 673.645
+distanceTrue:673.645
+Query: 41
+Nearest Neighbour 1 : 258
+distanceApproximate: 1309.95
+distanceTrue:1309.95
+Query: 42
+Nearest Neighbour 1 : 372
+distanceApproximate: 1357.12
+distanceTrue:1357.12
+Query: 43
+Nearest Neighbour 1 : 807
+distanceApproximate: 1711.6
+distanceTrue:1711.6
+Query: 44
+Nearest Neighbour 1 : 132
+distanceApproximate: 1432.74
+distanceTrue:1432.74
+Query: 45
+Nearest Neighbour 1 : 396
+distanceApproximate: 1507.54
+distanceTrue:1507.54
+Query: 46
+Nearest Neighbour 1 : 870
+distanceApproximate: 758.1
+distanceTrue:758.1
+Query: 47
+Nearest Neighbour 1 : 584
+distanceApproximate: 1609.18
+distanceTrue:1609.18
+Query: 48
+Nearest Neighbour 1 : 438
+distanceApproximate: 1605.97
+distanceTrue:1605.97
+Query: 49
+Nearest Neighbour 1 : 804
+distanceApproximate: 1602.01
+distanceTrue:1602.01
+Query: 50
+Nearest Neighbour 1 : 62
+distanceApproximate: 1434.18
+distanceTrue:1434.18
+Query: 51
+Nearest Neighbour 1 : 30
+distanceApproximate: 1897.03
+distanceTrue:1897.03
+Query: 52
+Nearest Neighbour 1 : 328
+distanceApproximate: 1802.33
+distanceTrue:1734.38
+Query: 53
+Nearest Neighbour 1 : 316
+distanceApproximate: 1347.91
+distanceTrue:1347.91
+Query: 54
+Nearest Neighbour 1 : 108
+distanceApproximate: 2203.85
+distanceTrue:2203.85
+Query: 55
+Nearest Neighbour 1 : 952
+distanceApproximate: 1381.08
+distanceTrue:1381.08
+Query: 56
+Nearest Neighbour 1 : 914
+distanceApproximate: 1361.18
+distanceTrue:1361.18
+Query: 57
+Nearest Neighbour 1 : 276
+distanceApproximate: 655.441
+distanceTrue:655.441
+Query: 58
+Nearest Neighbour 1 : 116
+distanceApproximate: 1148.96
+distanceTrue:1148.96
+Query: 59
+Nearest Neighbour 1 : 270
+distanceApproximate: 1539.11
+distanceTrue:1539.11
+Query: 60
+Nearest Neighbour 1 : 686
+distanceApproximate: 1497.78
+distanceTrue:1497.78
+Query: 61
+Nearest Neighbour 1 : 493
+distanceApproximate: 1851.94
+distanceTrue:1851.94
+Query: 62
+Nearest Neighbour 1 : 354
+distanceApproximate: 1458.82
+distanceTrue:1458.82
+Query: 63
+Nearest Neighbour 1 : 227
+distanceApproximate: 1819.05
+distanceTrue:1819.05
+Query: 64
+Nearest Neighbour 1 : 954
+distanceApproximate: 1702.56
+distanceTrue:1702.56
+Query: 65
+Nearest Neighbour 1 : 566
+distanceApproximate: 1507.84
+distanceTrue:1507.84
+Query: 66
+Nearest Neighbour 1 : 296
+distanceApproximate: 1931.05
+distanceTrue:1931.05
+Query: 67
+Nearest Neighbour 1 : 914
+distanceApproximate: 1727.09
+distanceTrue:1727.09
+Query: 68
+Nearest Neighbour 1 : 74
+distanceApproximate: 1578.7
+distanceTrue:1578.7
+Query: 69
+Nearest Neighbour 1 : 156
+distanceApproximate: 1670.1
+distanceTrue:1670.1
+Query: 70
+Nearest Neighbour 1 : 562
+distanceApproximate: 1372.93
+distanceTrue:1372.93
+Query: 71
+Nearest Neighbour 1 : 429
+distanceApproximate: 1013.71
+distanceTrue:1013.71
+Query: 72
+Nearest Neighbour 1 : 568
+distanceApproximate: 2187.64
+distanceTrue:2137.55
+Query: 73
+Nearest Neighbour 1 : 795
+distanceApproximate: 1346.06
+distanceTrue:1346.06
+Query: 74
+Nearest Neighbour 1 : 780
+distanceApproximate: 837.32
+distanceTrue:837.32
+Query: 75
+Nearest Neighbour 1 : 384
+distanceApproximate: 1376.75
+distanceTrue:1376.75
+Query: 76
+Nearest Neighbour 1 : 98
+distanceApproximate: 1304.38
+distanceTrue:1304.38
+Query: 77
+Nearest Neighbour 1 : 500
+distanceApproximate: 1649.05
+distanceTrue:1649.05
+Query: 78
+Nearest Neighbour 1 : 19
+distanceApproximate: 1310.72
+distanceTrue:1310.72
+Query: 79
+Nearest Neighbour 1 : 911
+distanceApproximate: 1496.25
+distanceTrue:1496.25
+Query: 80
+Nearest Neighbour 1 : 812
+distanceApproximate: 1442.19
+distanceTrue:1442.19
+Query: 81
+Nearest Neighbour 1 : 816
+distanceApproximate: 1344.85
+distanceTrue:1344.85
+Query: 82
+Nearest Neighbour 1 : 684
+distanceApproximate: 1586.12
+distanceTrue:1586.12
+Query: 83
+Nearest Neighbour 1 : 786
+distanceApproximate: 1308.15
+distanceTrue:1308.15
+Query: 84
+Nearest Neighbour 1 : 532
+distanceApproximate: 1669.83
+distanceTrue:1669.83
+Query: 85
+Nearest Neighbour 1 : 58
+distanceApproximate: 1382.03
+distanceTrue:1382.03
+Query: 86
+Nearest Neighbour 1 : 773
+distanceApproximate: 1201.03
+distanceTrue:1201.03
+Query: 87
+Nearest Neighbour 1 : 74
+distanceApproximate: 1891.81
+distanceTrue:1891.81
+Query: 88
+Nearest Neighbour 1 : 762
+distanceApproximate: 1618.58
+distanceTrue:1618.58
+Query: 89
+Nearest Neighbour 1 : 416
+distanceApproximate: 851.228
+distanceTrue:851.228
+Query: 90
+Nearest Neighbour 1 : 479
+distanceApproximate: 1723.42
+distanceTrue:1723.42
+Query: 91
+Nearest Neighbour 1 : 431
+distanceApproximate: 1415.88
+distanceTrue:1415.88
+Query: 92
+Nearest Neighbour 1 : 22
+distanceApproximate: 1276.04
+distanceTrue:1276.04
+Query: 93
+Nearest Neighbour 1 : 10
+distanceApproximate: 1479.18
+distanceTrue:1479.18
+Query: 94
+Nearest Neighbour 1 : 200
+distanceApproximate: 1000.68
+distanceTrue:1000.68
+Query: 95
+Nearest Neighbour 1 : 772
+distanceApproximate: 2009.77
+distanceTrue:2009.77
+Query: 96
+Nearest Neighbour 1 : 870
+distanceApproximate: 1009.55
+distanceTrue:1009.55
+Query: 97
+Nearest Neighbour 1 : 478
+distanceApproximate: 1467.51
+distanceTrue:1467.51
+Query: 98
+Nearest Neighbour 1 : 126
+distanceApproximate: 1699.61
+distanceTrue:1699.61
+Query: 99
+Nearest Neighbour 1 : 322
+distanceApproximate: 1470.72
+distanceTrue:1470.72
+tAverageApproximate: 0.001725
+tAverageReal: 0.00357
+MAF: 1.03918

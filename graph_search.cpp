@@ -30,7 +30,10 @@ int main(int argc,char *argv[]){
         cin >> inputFile;
         if (inputFile=="d") inputFile = "input.dat";
     }
-    vector<vector<int>> photos=readInput(inputFile,5000);
+    fprintf(stdout,"How many data do you want to include?\n");
+    int x;
+    cin >> x;
+    vector<vector<int>> photos=readInput(inputFile,x);
     Graph *g; //abstract class
     string method;
     //init abstract class based on argument
