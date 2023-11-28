@@ -8,7 +8,6 @@
 
 Gnns::Gnns(const vector<vector<int>> &points,int L,int K_DIM,int K_N,int E,int R):Graph(points),E(E),R(R){
     auto start = chrono::high_resolution_clock::now();
-    // if (!this->readFromFile()){
     HashTable* ht[L];
     #pragma omp parallel for // for parallelism
     for (int i=0;i<L;i++){
@@ -43,8 +42,6 @@ Gnns::Gnns(const vector<vector<int>> &points,int L,int K_DIM,int K_N,int E,int R
     auto end = chrono::high_resolution_clock::now();
     auto duration = chrono::duration_cast<std::chrono::microseconds>(end - start);
     cout << double(duration.count()/1e6) << endl;
-    // this->writeToFile();
-    // }
 }
 
 priority_queue<PQObject> Gnns::search(const vector<int> &query,chrono::microseconds &time){
@@ -84,55 +81,4 @@ priority_queue<PQObject> Gnns::search(const vector<int> &query,chrono::microseco
     auto duration = chrono::duration_cast<std::chrono::microseconds>(end - start);
     time+=duration;
     return S;
-}
-
-void Gnns::writeToFile(){
-    ofstream file("gnns.txt");
-
-    if (!file.is_open()) {
-        cerr << "cant write to file";
-        return;
-    }
-    else{
-        for(int i=0; i<neighbours.size(); i++){
-            file << "i=" << i << "\n";
-            for(auto neighbor : neighbours[i]){
-                file << "Index:" << neighbor.getIndex() << "\n";
-                file << "Distance:" << neighbor.getIndex() << "\n";
-                for (auto point : neighbor.getVector()){
-                    file << point << "-"; 
-                }
-                file << "NEXT\n";
-            }
-        }
-        file << "END" ;
-    }
-    //TODO write neighbours 
-    //idea write PQOBJECT per line
-    //seperate vectors by special delim like "NEXT\n"
-    //add like "END" to know where to stop
-    file.close();
-}
-
-bool Gnns::readFromFile(){
-    ifstream file("gnns.txt");
-
-    if (!file.is_open()) {
-        return false;//file not found so we havent saved it
-    }
-    else{
-        vector<string> myNeihgbours={};
-        int i=0;
-        while(myNeihgbours[i]!="END"){
-            while(myNeihgbours[i]!="NEXT"){
-                file >> myNeihgbours[i];
-                // cout << myNeihgbours[i];
-                i++;
-            }
-        }
-    }
-    //TODO read neighbours
-
-    file.close();
-    return true;
 }
