@@ -124,6 +124,39 @@ vector<vector<int>> readQuery(string filename,int limit){
     return bytes;
 }
 
+vector<vector<int>> readEncoded(string filename,int limit=0){
+    // Open the file
+    ifstream infile(filename);
+
+    // Check if the file is open
+    if (!infile.is_open()) {
+        cerr << "Error opening file" << endl;
+        return 1;
+    }
+
+    vector<vector<int>> encodedData;
+    int value;
+    string line;
+    int i=0;
+    while (getline(infile, line)) {
+        istringstream iss(line);
+        vector<int> row;
+
+        // Read values from the line and push them into the row vector
+        while (iss >> value) {
+            row.push_back(value);
+        }
+        encodedData.push_back(row);
+        i++;
+        if (limit!=0 && i==limit) break;
+    }
+
+    // Close the file
+    infile.close();
+
+    return encodedData;
+}
+
 void printImage(vector<int> query){
     for (int i=0; i<DIM ;i++){
         if (query[i]==0) cout << " ";
