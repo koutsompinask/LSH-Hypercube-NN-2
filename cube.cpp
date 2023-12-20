@@ -29,21 +29,19 @@ int main(int argc, char* argv[]){
     string inputFile = (args.count("d")==1) ? args["d"] : "input.dat";
     string queryFile = (args.count("q")==1) ? args["q"] : "query.dat";
     string outputFile = (args.count("o")==1) ? args["o"] : "";
-
-    if (args.count("d")==0){
-        fprintf(stdout,"Please provide name of dataset file (Give \"def\" to continue with \"input.dat\")\n");
-        cin >> inputFile;
-        if (inputFile=="def") inputFile = "input.dat";
-    }
-    
+    string inputEncFile = "x_train_enc1.txt";
+    string queryEncFile = "x_test_enc1.txt";
+    int datasize;
+    fprintf(stdout,"how many data do you want to use (up to 60000) ?\n");
+    cin >> datasize;
     //init cube
-    HyperCube hc(D);
-    vector<vector<int>> photos=readInput(inputFile);  
-    
+    vector<vector<int>> photos=readInput(inputFile,datasize);  
+    vector<vector<int>> photosEnc = readEncoded(inputEncFile,datasize);
+    HyperCube hc(D,photosEnc[0].size());
 
     //place data objects
     for (int i=0;i<photos.size();i++){
-        hc.place(photos[i],i);
+        hc.place(photosEnc[i],i);
     }
 
     cout << "finished training\n";
@@ -51,20 +49,15 @@ int main(int argc, char* argv[]){
     int loops;
     string contFlag;
 
-    if (args.count("q")==0){
-        fprintf(stdout,"Please provide name of query file (Give \"def\" to continue with \"query.dat\")\n");
-        cin >> queryFile;
-        cout << "query |" << queryFile << "|\n";
-        if (queryFile=="def") queryFile = "query.dat";
-    }
     fprintf(stdout,"how many queries do you want to execute ?\n");
     cin >> loops;
     vector<vector<int>> queries = readQuery(queryFile,loops);  //read as many queries as given from user
+    vector<vector<int>> queriesEnc = readEncoded(queryEncFile,loops);
 
     if (args.count("o")==0){
-        fprintf(stdout,"Please provide name of output file (Give \"def\" to continue with \"output.txt\")\n");
+        fprintf(stdout,"Please provide name of output file (Give \"d\" to continue with \"output.txt\")\n");
         cin >> outputFile;
-        if (outputFile=="def") outputFile = "output.txt";
+        if (outputFile=="d") outputFile = "output.txt";
     }
 
     ofstream output ;
@@ -73,73 +66,61 @@ int main(int argc, char* argv[]){
         cout.rdbuf(output.rdbuf());
     }
 
-    while(queries.size()!=0){
-        cout << "START OF SEARCH \n\n";
-        for (int k=0;k<queries.size();k++){
-            //2 priority queues for storing objects and distances 
-            //one for heuristic search and one for brute force
-            priority_queue<PQObject> pq;
-            priority_queue<PQObject> pq_real;
-            vector<int> query=queries[k];
-            cout << "Query: " << k <<endl;
+    double af=0,maf=0;
+    cout << "START OF SEARCH \n\n";
+    std::chrono::microseconds avgReal(0),avgApprox(0); 
+    for (int k=0;k<queries.size();k++){
+        //2 priority queues for storing objects and distances 
+        //one for heuristic search and one for brute force
+        priority_queue<PQObject> pq;
+        priority_queue<PQObject> pq_real;
+        vector<int> query=queries[k];
+        vector<int> queryEnc=queriesEnc[k];
+        cout << "Query: " << k <<endl;
 
-            auto startLsh = chrono::high_resolution_clock::now();
-            vector<HCObject> bucket = hc.getBucket(query,PROBES,M); //get bucket
-            for (HCObject obj:bucket){//for each object in same bucket
-                PQObject pqo(dist(query,obj.p),obj.p,obj.index); //create and push priority queue object
-                pq.push(pqo);
-            }
-            auto endLsh = chrono::high_resolution_clock::now();
-            auto durationLsh = chrono::duration_cast<std::chrono::microseconds>(endLsh - startLsh);
-
-            auto startTrue = chrono::high_resolution_clock::now();
-            for (int i=0;i<photos.size();i++){ //for every photo
-                PQObject pqo(dist(query,photos[i]),photos[i],i);
-                pq_real.push(pqo);
-            }
-            auto endTrue = chrono::high_resolution_clock::now();
-            auto durationTrue = chrono::duration_cast<std::chrono::microseconds>(endTrue - startTrue);
-
-            //print reesults
-            int i = 0;
-            while (!pq.empty() && i< K_N ){
-                PQObject pqo = pq.top();
-                PQObject pqo_real = pq_real.top();
-                cout << "Nearest Neighbour " << i+1 << " : " <<  pqo.getIndex() << endl;
-                cout << "Distance :" << pqo.getDistance() << endl;
-                cout << "Real Distance :" << pqo_real.getDistance() << endl;
-                pq.pop();
-                pq_real.pop();
-                i++;
-            }
-            cout << "tLsh: " << double(durationLsh.count()/1e6) << " seconds" << endl;
-            cout << "tReal: " << double(durationTrue.count()/1e6) << " seconds" << endl;
-
-            cout << "Range Search :\n";
-            int l=0;
-            for (HCObject obj:bucket){ //bucket retrieved earlier
-                double d = dist(obj.p,query);
-                if (d < R) {
-                    cout << "Index " << obj.index << " distance " << d << endl;
-                    l++;
-                }
-                if (l>=20) break; //if enough points printed , break
-            }
-            cout << endl;
-            fflush(stdout);
+        auto startLsh = chrono::high_resolution_clock::now();
+        vector<HCObject> bucket = hc.getBucket(queryEnc,PROBES,M); //get bucket
+        for (HCObject obj:bucket){//for each object in same bucket
+            PQObject pqo(dist(queryEnc,obj.p),obj.p,obj.index); //create and push priority queue object
+            pq.push(pqo);
         }
-        queries.clear();
-        fprintf(stdout,"Do you want to continue with another query ?(y/n)\n");
-        cin >> contFlag;
-        if (contFlag[0]!='y') break; //if not 'y' provided , stop the loop
-        fprintf(stdout,"Please provide name of query file (Give \"def\" to continue with previous file\n");
-        string prev = queryFile;
-        cin >> queryFile;
-        if (queryFile=="def") queryFile = prev;
-        fprintf(stdout,"how many queries do you want to execute ?\n");
-        cin >> loops;
-        queries = readQuery(queryFile,loops); //read as many queries as given from user
+        auto endLsh = chrono::high_resolution_clock::now();
+        auto durationLsh = chrono::duration_cast<std::chrono::microseconds>(endLsh - startLsh);
+
+        auto startTrue = chrono::high_resolution_clock::now();
+        for (int i=0;i<photos.size();i++){ //for every photo
+            PQObject pqo(dist(query,photos[i]),photos[i],i);
+            pq_real.push(pqo);
+        }
+        auto endTrue = chrono::high_resolution_clock::now();
+        auto durationTrue = chrono::duration_cast<std::chrono::microseconds>(endTrue - startTrue);
+
+        //print reesults
+        int i = 0;
+        while (!pq.empty() && i< K_N ){
+            PQObject pqo = pq.top();
+            PQObject pqo_real = pq_real.top();
+            double d = dist(query,photos[pqo.getIndex()]);
+            cout << "Nearest Neighbour " << i+1 << " : " <<  pqo.getIndex() << endl;
+            cout << "Distance :" << d << endl;
+            cout << "Real Distance :" << pqo_real.getDistance() << endl;
+            double x = d/pqo_real.getDistance();
+            if (x > maf){
+                maf = x;
+            }
+            af += x/queriesEnc.size();
+            pq.pop();
+            pq_real.pop();
+            i++;
+        }
+        avgReal+=durationTrue/queries.size();
+        avgApprox+=durationLsh/queries.size();
+        fflush(stdout);
     }
+    cout << "tAverageApproximate: " << double((avgApprox/queries.size()).count()/1e6) << endl;
+    cout << "tAverageReal: " << double((avgReal/queries.size()).count()/1e6) << endl;
+    cout << "MAF: " << maf << endl;
+    cout << "avgAF: " << af << endl;
 
     if (output.is_open()) output.close();
 

@@ -2,7 +2,7 @@
 #include <cstdlib>
 
 //constructor init parameters
-HashTable::HashTable(int K_DIM,int TABLESIZE) :TABLESIZE(TABLESIZE),K_DIM(K_DIM),v_vects(K_DIM, vector<double>(DIM)),rs(K_DIM),ts(K_DIM),table(TABLESIZE){
+HashTable::HashTable(int K_DIM,int TABLESIZE,int DIM) :TABLESIZE(TABLESIZE),K_DIM(K_DIM),v_vects(K_DIM, vector<double>(DIM)),rs(K_DIM),ts(K_DIM),table(TABLESIZE){
     //init distributions
     random_device rd;
     mt19937 generator(rd());
@@ -24,7 +24,7 @@ uint HashTable::g(vector<int> p){ //g computation for int vectors
     for (int i=0;i<K_DIM;i++){ //for K h functions
         double res=0.0;
         //find p*v
-        for (int j=0;j<DIM;j++){ 
+        for (int j=0 ; j<v_vects[i].size() ; j++){ 
             res+=(v_vects[i][j])*(p[j]);
         }
         //+t div w
@@ -39,7 +39,7 @@ uint HashTable::g(vector<double> p){ //g computation for double vectors
     for (int i=0;i<K_DIM;i++){ //for K h functions
         double res=0.0;
         //find p*v
-        for (int j=0;j<DIM;j++){ 
+        for (int j=0 ; j<v_vects[i].size() ; j++){ 
             res+=(v_vects[i][j])*(p[j]);
         }
         //+t div w

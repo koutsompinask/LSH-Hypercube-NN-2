@@ -18,7 +18,7 @@ vector<int> HyperCube::getNprobes(int maxDif, string number,vector<int> vectorSo
     return vectorSoFar; //return results
 }
 
-HyperCube::HyperCube(int D_DIM) :D_DIM(D_DIM),v_vects(D_DIM, vector<double>(DIM)),rs(D_DIM),ts(D_DIM),table(pow(2,D_DIM)),f(D_DIM){
+HyperCube::HyperCube(int D_DIM,int DIM) :D_DIM(D_DIM),v_vects(D_DIM, vector<double>(DIM)),rs(D_DIM),ts(D_DIM),table(pow(2,D_DIM)),f(D_DIM){
     //init distributions
     random_device rd;
     mt19937 generator(rd());
@@ -40,7 +40,7 @@ int HyperCube::hash(vector<int> p){
     for (int i=0;i<D_DIM;i++){ //for K h functions
         double res=0.0;
         //find p*v
-        for (int j=0;j<DIM;j++){ 
+        for (int j=0;j<v_vects[i].size();j++){ 
             res+=(v_vects[i][j])*(p[j]);
         }
         //+t div w
@@ -58,7 +58,7 @@ int HyperCube::hash(vector<double> p){
     for (int i=0;i<D_DIM;i++){ //for K h functions
         double res=0.0;
         //find p*v
-        for (int j=0;j<DIM;j++){ 
+        for (int j=0;j<v_vects[i].size();j++){ 
             res+=(v_vects[i][j])*(p[j]);
         }
         //+t div w

@@ -5,7 +5,6 @@
 #include <vector>
 #include <random>
 #include <map>
-#define DIM 784
 #define HP_WIN 4000
 #define M_NUM 0xFFA
 using namespace std;
@@ -39,7 +38,7 @@ class HyperCube{
     public:
         vector<HCObject> getBucket(vector<int> p,int probes,int maxPoints){return getBucketHelper(hash(p),probes,maxPoints);}; //call helper function both for int and doubles
         vector<HCObject> getBucket(vector<double> p,int probes,int maxPoints){return getBucketHelper(hash(p),probes,maxPoints);};
-        HyperCube(int d);
+        HyperCube(int d,int DIM);
         void place(vector<int> p,int index);
         void print();
 };

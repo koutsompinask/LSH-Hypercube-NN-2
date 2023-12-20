@@ -3,6 +3,8 @@
 #include <cmath>
 #include <string>
 #include <map>
+#include <fstream>
+#include <sstream>
 #define DIM 784
 using namespace std;
 
@@ -131,7 +133,7 @@ vector<vector<int>> readEncoded(string filename,int limit=0){
     // Check if the file is open
     if (!infile.is_open()) {
         cerr << "Error opening file" << endl;
-        return 1;
+        exit(-1);
     }
 
     vector<vector<int>> encodedData;

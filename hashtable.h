@@ -4,7 +4,6 @@
 #include <iostream>
 #include <vector>
 #include <random>
-#define DIM 784
 #define WIN 4000
 #define M_NUM 0xFFA
 using namespace std;
@@ -41,7 +40,7 @@ class HashTable{
         vector<HTObject> getBucket(vector<int> p){return table[hash(p)];}; //get corresponding bucket for int and double vector
         vector<HTObject> getBucket(vector<double> p){return table[hash(p)];};
         uint id(vector<int> p){return g(p)%M_NUM;};
-        HashTable(int K_DIM,int TABLESIZE);
+        HashTable(int K_DIM,int TABLESIZE,int DIM);
         void place(vector<int> p,int index);
         void print();
 };

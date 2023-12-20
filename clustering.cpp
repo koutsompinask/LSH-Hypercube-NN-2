@@ -21,6 +21,8 @@ int main(int argc,char *argv[]){
     const string configFile = (args.count("c")==1) ? args["c"] : "cluster.conf";
     string outputFile = (args.count("o")==1) ? args["o"] : "";
     string inputFile = (args.count("i")==1) ? args["i"] : "input.dat";
+    string inputEncFile = "x_train_enc.txt";
+    string queryEncFile = "x_test_enc.txt";
     const bool complete = args.count("complete")==1;
     const bool full = args.count("full")==1;
     //read config properties
@@ -33,17 +35,13 @@ int main(int argc,char *argv[]){
     const int PROBES = (confMap.count("PROBES")==1) ? confMap["PROBES"] : PROBES_DEF;
     
     int datasize;
-    if (args.count("d")==0){
-        fprintf(stdout,"Please provide name of dataset file (Give \"def\" to continue with \"input.dat\")\n");
-        cin >> inputFile;
-        if (inputFile=="def") inputFile = "input.dat";
-    }
     fprintf(stdout,"how many data do you want to use (up to 60000) ?\n");
     cin >> datasize;
 
     srand(time(NULL));//seed for rand
-    vector<vector<int>> photos= full ? readInput(inputFile) : readInput(inputFile,datasize);//read part of input file (to slow with whole dataset)
-    vector<vector<int>> intCentroids=init(photos,K); //init++
+    vector<vector<int>> photos=readInput(inputFile,datasize);//read part of input file (to slow with whole dataset)
+    vector<vector<int>> photosEnc=readEncoded(inputEncFile,datasize);
+    vector<vector<int>> intCentroids=init(photosEnc,K); //init++
     vector<vector<double>> centroids(intCentroids.size()); 
     //cast centroids to double numbers
     for (int i=0 ; i < intCentroids.size() ; i++){
@@ -54,9 +52,9 @@ int main(int argc,char *argv[]){
     cout << "finished init++"<< endl;
 
     if (args.count("o")==0){
-        fprintf(stdout,"Please provide name of output file (Give \"def\" to continue with \"output.txt\")\n");
+        fprintf(stdout,"Please provide name of output file (Give \"d\" to continue with \"output.txt\")\n");
         cin >> outputFile;
-        if (outputFile=="def") outputFile = "output.txt";
+        if (outputFile=="d") outputFile = "output.txt";
     }
 
     ofstream output ;
@@ -69,16 +67,16 @@ int main(int argc,char *argv[]){
     vector<int> belongsTo(photos.size(),-1);
     //call clustering algorithm based on -m parameter
     if (method.compare("CLASSIC")==0) {
-        lloyds(photos,centroids,belongsTo,clusterAssignment,complete);
+        lloyds(photosEnc,centroids,belongsTo,clusterAssignment,complete);
     } else if (method.compare("LSH")==0) {
-        lshRange(photos,centroids,belongsTo,clusterAssignment,K_LSH,L,complete);
+        lshRange(photosEnc,centroids,belongsTo,clusterAssignment,K_LSH,L,complete);
     } else if (method.compare("HYPERCUBE")==0) {
-        cubeRange(photos,centroids,belongsTo,clusterAssignment,K_HCUBE,M,PROBES,complete);
+        cubeRange(photosEnc,centroids,belongsTo,clusterAssignment,K_HCUBE,M,PROBES,complete);
     } else {
         cout << "please give parameter -m [lsh,hypercube or classic]\n"; //wrong method given
         exit(-1);
     }
-    vector<double> s = silhouette(photos,centroids,clusterAssignment,belongsTo);
+    vector<double> s = silhouette(photosEnc,centroids,clusterAssignment,belongsTo);
     if (output.is_open()) output.close();
     return 0;
 }

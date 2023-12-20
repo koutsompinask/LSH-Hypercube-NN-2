@@ -14,7 +14,7 @@ Mrng::Mrng(const vector<vector<int>> &points,const int l):Graph(points),l(l){
     HashTable* ht[L];
     #pragma omp parallel for
     for (int i=0;i<L;i++){
-        ht[i]=new HashTable(K,points.size()/128+1);
+        ht[i]=new HashTable(K,points.size()/128+1,points[0].size());
         for (int j=0;j<points.size();j++){
             ht[i]->place(points[j],j);
         }

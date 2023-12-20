@@ -213,7 +213,7 @@ void lshRange(const vector<vector<int>> &photos , vector<vector<double>> &centro
     //init hts
     HashTable *ht[L];
     for (int i=0; i < L ; i++){
-        ht[i] = new HashTable(K_LSH,photos.size()/128);
+        ht[i] = new HashTable(K_LSH,photos.size()/128,photos[0].size());
     }
     //populate hash tables
     for (int i=0; i<photos.size() ; i++){
@@ -300,7 +300,7 @@ void cubeRange(const vector<vector<int>> &photos , vector<vector<double>> &centr
     
     double range = minDist/2;
     //init and populate hypercube
-    HyperCube hc(K_HCUBE);
+    HyperCube hc(K_HCUBE,photos[0].size());
     for (int i=0;i<photos.size();i++){
         hc.place(photos[i],i);
     }
