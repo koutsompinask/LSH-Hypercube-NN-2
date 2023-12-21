@@ -21,8 +21,8 @@ int main(int argc,char *argv[]){
     const string configFile = (args.count("c")==1) ? args["c"] : "cluster.conf";
     string outputFile = (args.count("o")==1) ? args["o"] : "";
     string inputFile = (args.count("i")==1) ? args["i"] : "input.dat";
-    string inputEncFile = "x_train_enc.txt";
-    string queryEncFile = "x_test_enc.txt";
+    string inputEncFile = "x_train_enc32.txt";
+    string queryEncFile = "x_test_enc32.txt";
     const bool complete = args.count("complete")==1;
     const bool full = args.count("full")==1;
     //read config properties
@@ -76,7 +76,8 @@ int main(int argc,char *argv[]){
         cout << "please give parameter -m [lsh,hypercube or classic]\n"; //wrong method given
         exit(-1);
     }
-    vector<double> s = silhouette(photosEnc,centroids,clusterAssignment,belongsTo);
+    vector<vector<double>> centrStartingDim = turnCentroidToNearest(centroids,photosEnc,photos);
+    vector<double> s = silhouette(photos,centrStartingDim,clusterAssignment,belongsTo);
     if (output.is_open()) output.close();
     return 0;
 }

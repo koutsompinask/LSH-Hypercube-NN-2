@@ -29,14 +29,16 @@ int main(int argc, char* argv[]){
     string inputFile = (args.count("d")==1) ? args["d"] : "input.dat";
     string queryFile = (args.count("q")==1) ? args["q"] : "query.dat";
     string outputFile = (args.count("o")==1) ? args["o"] : "";
-    string inputEncFile = "x_train_enc1.txt";
-    string queryEncFile = "x_test_enc1.txt";
+    string inputEncFile = "x_train_enc32.txt";
+    string queryEncFile = "x_test_enc32.txt";
     int datasize;
     fprintf(stdout,"how many data do you want to use (up to 60000) ?\n");
     cin >> datasize;
     //init cube
     vector<vector<int>> photos=readInput(inputFile,datasize);  
     vector<vector<int>> photosEnc = readEncoded(inputEncFile,datasize);
+    //vector<vector<int>> photosEnc = photos;
+
     HyperCube hc(D,photosEnc[0].size());
 
     //place data objects
@@ -53,6 +55,7 @@ int main(int argc, char* argv[]){
     cin >> loops;
     vector<vector<int>> queries = readQuery(queryFile,loops);  //read as many queries as given from user
     vector<vector<int>> queriesEnc = readEncoded(queryEncFile,loops);
+    //vector<vector<int>> queriesEnc = queries;
 
     if (args.count("o")==0){
         fprintf(stdout,"Please provide name of output file (Give \"d\" to continue with \"output.txt\")\n");
@@ -117,8 +120,8 @@ int main(int argc, char* argv[]){
         avgApprox+=durationLsh/queries.size();
         fflush(stdout);
     }
-    cout << "tAverageApproximate: " << double((avgApprox/queries.size()).count()/1e6) << endl;
-    cout << "tAverageReal: " << double((avgReal/queries.size()).count()/1e6) << endl;
+    cout << "tAverageApproximate: " << double((avgApprox).count()/1e6) << endl;
+    cout << "tAverageReal: " << double((avgReal).count()/1e6) << endl;
     cout << "MAF: " << maf << endl;
     cout << "avgAF: " << af << endl;
 

@@ -25,13 +25,14 @@ int main(int argc,char *argv[]){
     string outputFile = (args.count("o")==1) ? args["o"] : "output3.txt";
     string inputFile = (args.count("d")==1) ? args["d"] : "input.dat";
     string queryFile = (args.count("q")==1) ? args["q"] : "query.dat";
-    string inputEncFile = "x_train_enc1.txt";
-    string queryEncFile = "x_test_enc1.txt";
+    string inputEncFile = "x_train_enc32.txt";
+    string queryEncFile = "x_test_enc32.txt";
     fprintf(stdout,"How many data do you want to include?\n");
     int x;
     cin >> x;
     vector<vector<int>> photos = readInput(inputFile,x);
     vector<vector<int>> photosEnc = readEncoded(inputEncFile,x);
+    //vector<vector<int>> photosEnc = photos;
     Graph *g; //abstract class
     string method;
     //init abstract class based on argument
@@ -47,6 +48,7 @@ int main(int argc,char *argv[]){
     cin >> loops;
     vector<vector<int>> queries = readQuery("query.dat",loops);
     vector<vector<int>> queriesEnc = readEncoded(queryEncFile,loops);
+    //vector<vector<int>> queriesEnc = queries;
 
     if (args.count("o")==0){
         fprintf(stdout,"Please provide name of output file (Give \"d\" to continue with \"output3.txt\")\n");

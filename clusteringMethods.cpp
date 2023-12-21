@@ -403,3 +403,24 @@ vector<double> silhouette(const vector<vector<int>> &photos, const vector<vector
     cout << "Compution time: " << double(duration.count()/1e6) << " seconds" << endl;
     return s;
 }
+
+vector<vector<double>> turnCentroidToNearest(vector<vector<double>> &centroids , vector<vector<int>> &pointsEnc ,  vector<vector<int>> &points){
+    vector<vector<double>> retCentr(centroids.size(),vector<double>(points[0].size()));
+    for (int k=0; k<centroids.size(); k++){
+        //find nearest point
+        double min=-1;
+        int minInd = -1;
+        for (int i=0 ; i<pointsEnc.size() ; i++){
+            double d = dist(pointsEnc[i],centroids[k]);
+            if (min == -1 || min>d){
+                min = d;
+                minInd = i;
+            }
+        }
+        //assign in to centroid
+        for (int i=0 ; i<retCentr[k].size() ; i++){
+            retCentr[k][i] = (double) points[minInd][i];
+        }
+    }
+    return retCentr;
+}
