@@ -29,8 +29,8 @@ int main(int argc, char* argv[]){
     string inputFile = (args.count("d")==1) ? args["d"] : "input.dat";
     string queryFile = (args.count("q")==1) ? args["q"] : "query.dat";
     string outputFile = (args.count("o")==1) ? args["o"] : "";
-    string inputEncFile = "x_train_enc32.txt";
-    string queryEncFile = "x_test_enc32.txt";
+    string inputEncFile = (args.count("de")==1) ? args["de"] : "x_train_enc4.txt";
+    string queryEncFile = (args.count("qe")==1) ? args["qe"] : "x_test_enc4.txt";
     int datasize;
     fprintf(stdout,"how many data do you want to use (up to 60000) ?\n");
     cin >> datasize;

@@ -21,8 +21,8 @@ int main(int argc,char *argv[]){
     const string configFile = (args.count("c")==1) ? args["c"] : "cluster.conf";
     string outputFile = (args.count("o")==1) ? args["o"] : "";
     string inputFile = (args.count("i")==1) ? args["i"] : "input.dat";
-    string inputEncFile = "x_train_enc32.txt";
-    string queryEncFile = "x_test_enc32.txt";
+    string inputEncFile = (args.count("de")==1) ? args["de"] : "x_train_enc4.txt";
+    string queryEncFile = (args.count("qe")==1) ? args["qe"] : "x_test_enc4.txt";
     const bool complete = args.count("complete")==1;
     const bool full = args.count("full")==1;
     //read config properties
